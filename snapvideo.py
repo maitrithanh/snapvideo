@@ -12,6 +12,7 @@ from pathlib import Path
 import ssl
 import certifi
 import yt_dlp
+import json
 
 # Fix SSL certificate verification issues
 import urllib3
@@ -38,11 +39,16 @@ class VideoDownloader:
         # Đặt màu nền và style
         self.root.configure(bg="#1e1e2e")
         
+        # File config để lưu settings
+        self.config_file = Path.home() / ".snapvideo_config.json"
+        
+        # Load settings đã lưu
+        self.load_settings()
+        
         # Biến lưu trữ
-        self.download_path = str(Path.home() / "Downloads" / "SnapVideo")
         self.is_downloading = False
         
-        # Tạo thư mục download mặc định
+        # Tạo thư mục download nếu chưa có
         os.makedirs(self.download_path, exist_ok=True)
         
         self.setup_ui()
@@ -134,7 +140,9 @@ class VideoDownloader:
         )
         quality_label.pack(anchor="w", pady=(0, 8))
         
-        self.quality_var = tk.StringVar(value="best")
+        # Load quality đã lưu hoặc dùng mặc định
+        default_quality = getattr(self, 'last_quality', 'best')
+        self.quality_var = tk.StringVar(value=default_quality)
         quality_options = [
             ("Tốt nhất (Best)", "best"),
             ("1080p", "1080"),
@@ -316,6 +324,36 @@ class VideoDownloader:
         except Exception as e:
             messagebox.showerror("Lỗi", f"Không thể dán từ clipboard!\n\nLỗi: {str(e)}")
     
+    def load_settings(self):
+        """Load settings từ file config"""
+        try:
+            if self.config_file.exists():
+                with open(self.config_file, 'r', encoding='utf-8') as f:
+                    settings = json.load(f)
+                    self.download_path = settings.get('download_path', str(Path.home() / "Downloads" / "SnapVideo"))
+                    self.last_quality = settings.get('last_quality', 'best')
+            else:
+                # Settings mặc định
+                self.download_path = str(Path.home() / "Downloads" / "SnapVideo")
+                self.last_quality = 'best'
+        except Exception as e:
+            # Nếu lỗi, dùng settings mặc định
+            self.download_path = str(Path.home() / "Downloads" / "SnapVideo")
+            self.last_quality = 'best'
+    
+    def save_settings(self):
+        """Lưu settings vào file config"""
+        try:
+            settings = {
+                'download_path': self.download_path,
+                'last_quality': self.quality_var.get() if hasattr(self, 'quality_var') else 'best'
+            }
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump(settings, f, indent=4, ensure_ascii=False)
+        except Exception as e:
+            # Không hiện lỗi nếu không lưu được
+            pass
+    
     def browse_folder(self):
         """Chọn thư mục lưu file"""
         folder = filedialog.askdirectory(initialdir=self.download_path)
@@ -323,6 +361,8 @@ class VideoDownloader:
             self.download_path = folder
             self.path_entry.delete(0, "end")
             self.path_entry.insert(0, folder)
+            # Lưu ngay khi thay đổi
+            self.save_settings()
     
     def update_status(self, message, color="#00ff88"):
         """Cập nhật trạng thái"""
@@ -407,6 +447,10 @@ class VideoDownloader:
                 video_title = info.get('title', 'Video')
             
             self.update_status("Hoàn thành! ✅", "#00ff88")
+            
+            # Lưu settings sau khi tải thành công
+            self.save_settings()
+            
             messagebox.showinfo(
                 "Thành công", 
                 f"Video đã được tải về thành công!\n\nTên: {video_title}\nThư mục: {self.download_path}"
@@ -441,6 +485,13 @@ def main():
     """Hàm chính để khởi động ứng dụng"""
     root = tk.Tk()
     app = VideoDownloader(root)
+    
+    # Lưu settings khi đóng ứng dụng
+    def on_closing():
+        app.save_settings()
+        root.destroy()
+    
+    root.protocol("WM_DELETE_WINDOW", on_closing)
     
     # Căn giữa cửa sổ
     root.update_idletasks()
