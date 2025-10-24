@@ -13,6 +13,7 @@ import ssl
 import certifi
 import yt_dlp
 import json
+import webbrowser
 
 # Fix SSL certificate verification issues
 import urllib3
@@ -35,6 +36,14 @@ class VideoDownloader:
         self.root.title("SnapVideo - Video Downloader")
         self.root.geometry("800x600")
         self.root.resizable(True, True)
+        
+        # Đặt icon cho cửa sổ
+        try:
+            icon_path = Path(__file__).parent / "icon.ico"
+            if icon_path.exists():
+                self.root.iconbitmap(str(icon_path))
+        except:
+            pass  # Không có icon thì bỏ qua
         
         # Đặt màu nền và style
         self.root.configure(bg="#1e1e2e")
@@ -283,7 +292,57 @@ class VideoDownloader:
             wraplength=700,
             justify="center"
         )
-        info_label.pack(pady=20)
+        info_label.pack(pady=(20, 10))
+        
+        # Donate Section
+        donate_frame = tk.Frame(info_frame, bg="#2d2d44")
+        donate_frame.pack(fill="x", padx=20, pady=(0, 15))
+        
+        donate_label = tk.Label(
+            donate_frame,
+            text="☕ Thích SnapVideo? Hỗ trợ chúng tôi phát triển!",
+            font=("Segoe UI", 9, "italic"),
+            bg="#2d2d44",
+            fg="#00d4ff"
+        )
+        donate_label.pack(pady=(0, 8))
+        
+        # Buttons frame
+        donate_buttons_frame = tk.Frame(donate_frame, bg="#2d2d44")
+        donate_buttons_frame.pack()
+        
+        # Nút donate/support
+        donate_btn = tk.Button(
+            donate_buttons_frame,
+            text="❤️ Donate",
+            command=self.show_donate_info,
+            font=("Segoe UI", 9, "bold"),
+            bg="#ff4444",
+            fg="#ffffff",
+            activebackground="#cc0000",
+            activeforeground="#ffffff",
+            relief="flat",
+            cursor="hand2",
+            padx=15,
+            pady=5
+        )
+        donate_btn.pack(side="left", padx=5)
+        
+        github_btn = tk.Button(
+            donate_buttons_frame,
+            text="⭐ GitHub",
+            command=self.open_github,
+            font=("Segoe UI", 9, "bold"),
+            bg="#4d4d6d",
+            fg="#ffffff",
+            activebackground="#5d5d7d",
+            activeforeground="#ffffff",
+            relief="flat",
+            cursor="hand2",
+            padx=15,
+            pady=5
+        )
+        github_btn.pack(side="left", padx=5)
         
     def on_entry_click(self, event):
         """Xử lý khi click vào ô nhập URL"""
@@ -353,6 +412,116 @@ class VideoDownloader:
         except Exception as e:
             # Không hiện lỗi nếu không lưu được
             pass
+    
+    def show_donate_info(self):
+        """Hiển thị thông tin donate"""
+        donate_window = tk.Toplevel(self.root)
+        donate_window.title("❤️ Hỗ trợ SnapVideo")
+        donate_window.geometry("450x380")
+        donate_window.configure(bg="#1e1e2e")
+        donate_window.resizable(False, False)
+        
+        # Căn giữa cửa sổ
+        donate_window.transient(self.root)
+        donate_window.grab_set()
+        
+        # Header
+        header = tk.Label(
+            donate_window,
+            text="❤️ Hỗ trợ Phát triển SnapVideo",
+            font=("Segoe UI", 16, "bold"),
+            bg="#1e1e2e",
+            fg="#00d4ff"
+        )
+        header.pack(pady=(30, 10))
+        
+        # Message
+        message = tk.Label(
+            donate_window,
+            text="SnapVideo là phần mềm miễn phí và mã nguồn mở.\n"
+                 "Nếu bạn thấy hữu ích, hãy hỗ trợ tôi phát triển! 🙏",
+            font=("Segoe UI", 11),
+            bg="#1e1e2e",
+            fg="#ffffff",
+            justify="center"
+        )
+        message.pack(pady=(0, 25))
+        
+        # Buttons container
+        buttons_frame = tk.Frame(donate_window, bg="#1e1e2e")
+        buttons_frame.pack(pady=(0, 20))
+        
+        # Buy Me a Coffee button
+        coffee_btn = tk.Button(
+            buttons_frame,
+            text="☕ Buy Me a Coffee",
+            command=lambda: self.open_link("https://buymeacoffee.com/maitrithanh"),
+            font=("Segoe UI", 13, "bold"),
+            bg="#FFDD00",
+            fg="#000000",
+            activebackground="#FFCC00",
+            relief="flat",
+            cursor="hand2",
+            padx=35,
+            pady=12
+        )
+        coffee_btn.pack(pady=(0, 15))
+        
+        # PayPal button
+        paypal_btn = tk.Button(
+            buttons_frame,
+            text="💳 PayPal Donate",
+            command=lambda: self.open_link("https://paypal.me/maitrithanh"),
+            font=("Segoe UI", 13, "bold"),
+            bg="#0070BA",
+            fg="#ffffff",
+            activebackground="#005A99",
+            relief="flat",
+            cursor="hand2",
+            padx=35,
+            pady=12
+        )
+        paypal_btn.pack(pady=(0, 25))
+        
+        # Close button
+        close_btn = tk.Button(
+            donate_window,
+            text="Đóng",
+            command=donate_window.destroy,
+            font=("Segoe UI", 10),
+            bg="#4d4d6d",
+            fg="#ffffff",
+            activebackground="#5d5d7d",
+            relief="flat",
+            cursor="hand2",
+            padx=30,
+            pady=8
+        )
+        close_btn.pack()
+        
+        # Thank you note
+        thanks = tk.Label(
+            donate_window,
+            text="Cảm ơn sự hỗ trợ của bạn! 🙏",
+            font=("Segoe UI", 9, "italic"),
+            bg="#1e1e2e",
+            fg="#00d4ff"
+        )
+        thanks.pack(pady=(15, 20))
+    
+    def open_github(self):
+        """Mở trang GitHub"""
+        try:
+            webbrowser.open("https://github.com/maitrithanh/snapvideo")
+        except:
+            messagebox.showerror("Lỗi", "Không thể mở trình duyệt!")
+    
+    def open_link(self, url):
+        """Mở link trong trình duyệt"""
+        try:
+            webbrowser.open(url)
+        except:
+            messagebox.showerror("Lỗi", f"Không thể mở link:\n{url}")
     
     def browse_folder(self):
         """Chọn thư mục lưu file"""

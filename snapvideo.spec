@@ -63,7 +63,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=None,  # Add icon file path here if you have one: icon='icon.ico'
+    icon='icon.ico',  # Icon for Windows executable
     version_file=None,
 )
 

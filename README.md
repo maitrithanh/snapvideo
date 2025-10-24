@@ -193,6 +193,15 @@ Sau khi build, bạn có thể:
 - Tôn trọng bản quyền và điều khoản sử dụng của các nền tảng
 - Không sử dụng để tải nội dung vi phạm bản quyền
 
+## ❤️ Hỗ trợ dự án
+
+Nếu bạn thấy SnapVideo hữu ích, hãy hỗ trợ phát triển!
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/maitrithanh)
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/maitrithanh)
+
+Hoặc star ⭐ repository này để ủng hộ!
+
 ## 🤝 Đóng góp
 
 Mọi đóng góp đều được chào đón! Nếu bạn có ý tưởng cải thiện hoặc tìm thấy lỗi, hãy tạo issue hoặc pull request.

@@ -28,7 +28,7 @@ DefaultGroupName={#MyAppName}
 ; Output
 OutputDir=output
 OutputBaseFilename=SnapVideo_Setup_v{#MyAppVersion}
-SetupIconFile=
+SetupIconFile=icon.ico
 
 ; Compression
 Compression=lzma2/max

@@ -59,3 +59,7 @@ output/
 !run_snapvideo.bat
 !install.bat
 
+# Temporary files
+create_icon.py
+icon_32.png
+
