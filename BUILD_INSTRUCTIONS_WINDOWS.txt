@@ -1,0 +1,141 @@
+╔════════════════════════════════════════════════════════════════════╗
+║          HƯỚNG DẪN BUILD FILE .EXE TRÊN WINDOWS                    ║
+║              (Tạo file chạy trực tiếp không cần Python)            ║
+╚════════════════════════════════════════════════════════════════════╝
+
+
+⚡ BUILD NHANH TRONG 5 PHÚT!
+═══════════════════════════════════════════════════════════════════════
+
+BƯỚC 1: Copy toàn bộ thư mục snapvideo vào máy Windows
+        (Qua USB, Google Drive, hoặc GitHub)
+
+BƯỚC 2: Trên máy Windows, mở thư mục snapvideo
+
+BƯỚC 3: Double-click file: install.bat
+        → Cài đặt Python dependencies
+
+BƯỚC 4: Double-click file: build_exe.bat
+        → Tạo file SnapVideo.exe (~2-5 phút)
+
+BƯỚC 5: Xong! File SnapVideo.exe đã sẵn sàng!
+
+
+═══════════════════════════════════════════════════════════════════════
+📝 CHI TIẾT TỪNG BƯỚC
+═══════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────┐
+│ Bước 1: Chuyển code sang Windows                               │
+└─────────────────────────────────────────────────────────────────┘
+
+CÁCH A - Dùng USB:
+   1. Copy toàn bộ thư mục snapvideo vào USB
+   2. Cắm USB vào máy Windows
+   3. Copy từ USB vào máy Windows (ví dụ: Desktop)
+
+CÁCH B - Dùng Google Drive/Dropbox:
+   1. Nén thư mục snapvideo thành .zip
+   2. Upload lên Google Drive
+   3. Download trên máy Windows và giải nén
+
+CÁCH C - Dùng GitHub (Nếu có):
+   1. Push code lên GitHub repository
+   2. Clone về máy Windows
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│ Bước 2: Cài đặt Python trên Windows (Nếu chưa có)              │
+└─────────────────────────────────────────────────────────────────┘
+
+1. Truy cập: https://www.python.org/downloads/
+2. Download Python 3.7 hoặc mới hơn
+3. Chạy file cài đặt
+4. ⚠️ QUAN TRỌNG: Tick "Add Python to PATH"
+5. Click "Install Now"
+6. Đợi cài đặt xong
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│ Bước 3: Cài đặt dependencies                                   │
+└─────────────────────────────────────────────────────────────────┘
+
+Double-click file: install.bat
+
+Script sẽ tự động:
+✓ Kiểm tra Python
+✓ Cập nhật pip
+✓ Cài đặt tất cả thư viện cần thiết
+✓ Kiểm tra FFmpeg
+
+Đợi 2-3 phút cho quá trình hoàn tất.
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│ Bước 4: Build file .exe                                         │
+└─────────────────────────────────────────────────────────────────┘
+
+Double-click file: build_exe.bat
+
+Script sẽ tự động:
+✓ Kiểm tra Python và PyInstaller
+✓ Cài PyInstaller nếu cần
+✓ Xóa build cũ
+✓ Build file .exe mới
+✓ Copy ra thư mục gốc
+
+Đợi 2-5 phút. Xong!
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│ Bước 5: Kiểm tra và sử dụng                                    │
+└─────────────────────────────────────────────────────────────────┘
+
+1. File SnapVideo.exe (~30-50MB) đã xuất hiện
+2. Double-click để chạy
+3. Test tải 1 video
+4. Nếu OK → Có thể chia sẻ file này cho bất kỳ ai!
+
+
+═══════════════════════════════════════════════════════════════════════
+🎁 TẠO INSTALLER (TÙY CHỌN)
+═══════════════════════════════════════════════════════════════════════
+
+Nếu muốn tạo installer chuyên nghiệp:
+
+1. Download Inno Setup:
+   https://jrsoftware.org/isdl.php
+
+2. Cài đặt Inno Setup
+
+3. Double-click file: build_installer.bat
+
+4. Xong! File installer ở: output\SnapVideo_Setup_v1.0.0.exe
+
+
+═══════════════════════════════════════════════════════════════════════
+❌ GẶP VẤN ĐỀ?
+═══════════════════════════════════════════════════════════════════════
+
+Vấn đề: Python chưa cài
+→ Cài Python từ python.org, nhớ tick "Add to PATH"
+
+Vấn đề: "pip is not recognized"
+→ Cài lại Python với "Add Python to PATH"
+
+Vấn đề: Build lỗi
+→ Chạy: pip install -r requirements-dev.txt
+→ Chạy lại: build_exe.bat
+
+Vấn đề: .exe không chạy
+→ Windows Defender chặn
+→ Click "More info" → "Run anyway"
+
+
+═══════════════════════════════════════════════════════════════════════
+
+✅ KẾT QUẢ: File SnapVideo.exe có thể chạy trên BẤT KỲ máy Windows 
+             nào mà KHÔNG CẦN cài Python!
+
+═══════════════════════════════════════════════════════════════════════
+

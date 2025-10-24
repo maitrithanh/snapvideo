@@ -1,0 +1,224 @@
+╔════════════════════════════════════════════════════════════════════╗
+║           TẤT CẢ CÁCH ĐỂ TẠO FILE .EXE CHO SNAPVIDEO              ║
+║              Chọn phương án phù hợp với bạn!                       ║
+╚════════════════════════════════════════════════════════════════════╝
+
+
+🎯 BẠN ĐANG DÙNG macOS NHƯNG MUỐN TẠO FILE .EXE CHO WINDOWS?
+═══════════════════════════════════════════════════════════════════════
+
+Có 3 cách để làm điều này:
+
+
+╔════════════════════════════════════════════════════════════════════╗
+║ PHƯƠNG ÁN 1: SỬ DỤNG GITHUB ACTIONS (KHUYẾN NGHỊ!) ⭐⭐⭐⭐⭐      ║
+╚════════════════════════════════════════════════════════════════════╝
+
+✅ KHÔNG cần máy Windows
+✅ KHÔNG cần cài đặt gì
+✅ Build tự động trên cloud
+✅ HOÀN TOÀN MIỄN PHÍ
+✅ Chỉ cần 5 phút setup
+
+┌─────────────────────────────────────────────────────────────────┐
+│ CÁCH LÀM:                                                        │
+│                                                                  │
+│ 1. Tạo repository trên GitHub                                   │
+│ 2. Push code lên (đã có file workflow sẵn)                     │
+│ 3. GitHub tự động build file .exe                               │
+│ 4. Download file .exe từ Artifacts                             │
+│ 5. XONG!                                                         │
+└─────────────────────────────────────────────────────────────────┘
+
+📖 Đọc chi tiết: GITHUB_BUILD_GUIDE.txt
+
+Thời gian: 5 phút setup + 3-5 phút build
+Độ khó: ★★☆☆☆ (Trung bình)
+Chi phí: MIỄN PHÍ
+
+
+╔════════════════════════════════════════════════════════════════════╗
+║ PHƯƠNG ÁN 2: DÙNG MÁY WINDOWS (CÓ SẴN HOẶC MẬY BẠN) ⭐⭐⭐⭐       ║
+╚════════════════════════════════════════════════════════════════════╝
+
+✅ Build nhanh nhất
+✅ Kiểm soát hoàn toàn
+✅ Test ngay trên máy
+✅ Đơn giản nếu có sẵn Windows
+
+┌─────────────────────────────────────────────────────────────────┐
+│ CÁCH LÀM:                                                        │
+│                                                                  │
+│ 1. Copy thư mục snapvideo sang máy Windows                      │
+│    (USB, Google Drive, hoặc GitHub)                             │
+│ 2. Double-click: install.bat                                    │
+│ 3. Double-click: build_exe.bat                                  │
+│ 4. Nhận file SnapVideo.exe                                      │
+│ 5. XONG!                                                         │
+└─────────────────────────────────────────────────────────────────┘
+
+📖 Đọc chi tiết: BUILD_INSTRUCTIONS_WINDOWS.txt
+
+Thời gian: 5-10 phút
+Độ khó: ★☆☆☆☆ (Rất dễ)
+Yêu cầu: Có máy Windows hoặc bạn bè có Windows
+
+
+╔════════════════════════════════════════════════════════════════════╗
+║ PHƯƠNG ÁN 3: MÁY ẢO WINDOWS TRÊN macOS ⭐⭐⭐                       ║
+╚════════════════════════════════════════════════════════════════════╝
+
+✅ Không cần máy Windows thật
+✅ Chạy Windows trên macOS
+✅ Build local
+✅ Có thể tái sử dụng cho dự án khác
+
+┌─────────────────────────────────────────────────────────────────┐
+│ CÁCH LÀM:                                                        │
+│                                                                  │
+│ 1. Cài VMware Fusion hoặc VirtualBox                           │
+│ 2. Cài Windows VM (có thể dùng Windows 10 trial)               │
+│ 3. Share thư mục snapvideo vào VM                              │
+│ 4. Build như bình thường trong VM                              │
+│ 5. Copy file .exe ra macOS                                      │
+└─────────────────────────────────────────────────────────────────┘
+
+Thời gian: 30-60 phút setup + 5 phút build
+Độ khó: ★★★★☆ (Khó)
+Yêu cầu: ~20GB dung lượng, RAM 8GB+
+
+
+═══════════════════════════════════════════════════════════════════════
+📊 SO SÁNH CÁC PHƯƠNG ÁN
+═══════════════════════════════════════════════════════════════════════
+
+┌────────────┬──────┬──────┬──────┬──────────┬──────────────┐
+│ Phương án  │ Dễ   │ Nhanh│ Miễn │ Không    │ Tái sử dụng  │
+│            │      │      │ phí  │ cần Win  │              │
+├────────────┼──────┼──────┼──────┼──────────┼──────────────┤
+│ GitHub     │ ★★★  │ ★★★★ │ ✅   │ ✅       │ ✅ ✅ ✅     │
+│ Actions    │      │      │      │          │              │
+├────────────┼──────┼──────┼──────┼──────────┼──────────────┤
+│ Máy        │ ★★★★ │ ★★★★ │ ✅   │ ❌       │ ✅           │
+│ Windows    │★     │★     │      │          │              │
+├────────────┼──────┼──────┼──────┼──────────┼──────────────┤
+│ Máy ảo     │ ★★   │ ★★★  │ ✅   │ ✅       │ ✅ ✅        │
+│ Windows    │      │      │      │          │              │
+└────────────┴──────┴──────┴──────┴──────────┴──────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════
+💡 KHUYẾN NGHỊ CỦA TÔI
+═══════════════════════════════════════════════════════════════════════
+
+🥇 PHƯƠNG ÁN TỐT NHẤT: GitHub Actions
+   → Nhanh, dễ, miễn phí, tự động!
+   → Đọc: GITHUB_BUILD_GUIDE.txt
+
+🥈 NẾU CÓ BẠN DÙNG WINDOWS: Nhờ họ build giúp
+   → Chỉ mất 5 phút!
+   → Đọc: BUILD_INSTRUCTIONS_WINDOWS.txt
+
+🥉 NẾU CÓ THỜI GIAN: Setup máy ảo
+   → Hữu ích cho các dự án sau này
+
+
+═══════════════════════════════════════════════════════════════════════
+🚀 HÀNH ĐỘNG NGAY BÂY GIỜ
+═══════════════════════════════════════════════════════════════════════
+
+📝 TÔI CHỌN: GitHub Actions (Khuyến nghị!)
+
+▶ Làm theo 5 bước:
+
+1️⃣ Tạo GitHub account (nếu chưa có): github.com
+
+2️⃣ Tạo repository mới:
+   - Tên: snapvideo
+   - Public (để free Actions)
+
+3️⃣ Upload code:
+   CÁCH DỄ - Dùng GitHub Desktop:
+   • Download: https://desktop.github.com/
+   • Add Local Repository → chọn thư mục snapvideo
+   • Publish repository
+
+   CÁCH NHANH - Dùng Terminal:
+   cd /Users/maitrithanh/Desktop/WorkSpace/snapvideo
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/snapvideo.git
+   git push -u origin main
+
+4️⃣ Xem Actions tab → Đợi build xong (3-5 phút)
+
+5️⃣ Download file .exe từ Artifacts!
+
+✅ XONG! Bạn có file SnapVideo.exe!
+
+
+═══════════════════════════════════════════════════════════════════════
+📂 CẤU TRÚC PROJECT (ĐÃ SẴN SÀNG)
+═══════════════════════════════════════════════════════════════════════
+
+Tất cả file cần thiết đã được tạo:
+
+snapvideo/
+├── snapvideo.py                        ← Code chính
+├── requirements.txt                    ← Dependencies
+├── requirements-dev.txt                ← Build dependencies
+│
+├── .github/
+│   └── workflows/
+│       └── build.yml                   ← GitHub Actions (TỰ ĐỘNG!)
+│
+├── build_exe.bat                       ← Build trên Windows
+├── build_installer.bat                 ← Tạo installer
+├── snapvideo.spec                      ← PyInstaller config
+├── installer.iss                       ← Inno Setup config
+│
+├── README.md                           ← Documentation
+├── GITHUB_BUILD_GUIDE.txt              ← Hướng dẫn GitHub Actions
+├── BUILD_INSTRUCTIONS_WINDOWS.txt      ← Hướng dẫn build Windows
+├── HUONG_DAN_BUILD.txt                 ← Hướng dẫn chi tiết
+└── ALL_BUILD_OPTIONS.txt               ← File này!
+
+
+═══════════════════════════════════════════════════════════════════════
+❓ CÒN THẮC MẮC?
+═══════════════════════════════════════════════════════════════════════
+
+Q: Tôi không biết dùng Git/GitHub?
+A: Dùng GitHub Desktop, giao diện đơn giản, kéo thả!
+   Hoặc xem video YouTube: "GitHub Desktop tutorial"
+
+Q: Build mất bao lâu?
+A: GitHub Actions: 3-5 phút
+   Windows local: 2-5 phút
+
+Q: File .exe có chạy được không?
+A: Có! Chạy trên BẤT KỲ máy Windows nào, không cần Python!
+
+Q: Có tốn tiền không?
+A: HOÀN TOÀN MIỄN PHÍ với GitHub Actions (public repo)!
+
+Q: Build một lần hay nhiều lần?
+A: Unlimited! Mỗi lần push code là tự động build lại!
+
+Q: Có thể chia sẻ được không?
+A: Có! File .exe có thể chia sẻ cho bất kỳ ai!
+
+
+═══════════════════════════════════════════════════════════════════════
+
+🎉 CHÚC BẠN BUILD THÀNH CÔNG!
+
+Nếu gặp vấn đề, đọc các file hướng dẫn chi tiết:
+- GITHUB_BUILD_GUIDE.txt         (GitHub Actions)
+- BUILD_INSTRUCTIONS_WINDOWS.txt (Build trên Windows)
+- HUONG_DAN_BUILD.txt            (Hướng dẫn đầy đủ)
+
+═══════════════════════════════════════════════════════════════════════
+
