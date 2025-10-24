@@ -292,12 +292,31 @@ class VideoDownloader:
         try:
             self.update_status("Đang chuẩn bị...", "#00d4ff")
             
-            # Cấu hình yt-dlp
+            # Cấu hình yt-dlp với các options đầy đủ
             ydl_opts = {
                 'outtmpl': os.path.join(self.download_path, '%(title)s.%(ext)s'),
                 'progress_hooks': [self.progress_hook],
                 'quiet': False,
                 'no_warnings': False,
+                # Thêm options quan trọng để tránh tải HTML
+                'nocheckcertificate': True,
+                'prefer_insecure': False,
+                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'referer': 'https://www.google.com/',
+                'extract_flat': False,
+                'ignoreerrors': False,
+                # Merge video và audio
+                'merge_output_format': 'mp4',
+                # Retry khi lỗi
+                'retries': 10,
+                'fragment_retries': 10,
+                # Cookies và headers
+                'http_headers': {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                    'Accept-Language': 'en-us,en;q=0.5',
+                    'Sec-Fetch-Mode': 'navigate',
+                },
             }
             
             # Cấu hình format dựa trên lựa chọn
@@ -309,9 +328,11 @@ class VideoDownloader:
                     'preferredquality': '192',
                 }]
             elif quality == "best":
-                ydl_opts['format'] = 'bestvideo+bestaudio/best'
+                # Format tốt nhất với video+audio
+                ydl_opts['format'] = 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best'
             else:
-                ydl_opts['format'] = f'bestvideo[height<={quality}]+bestaudio/best[height<={quality}]'
+                # Format với chất lượng cụ thể
+                ydl_opts['format'] = f'bestvideo[height<={quality}][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<={quality}]+bestaudio/best[height<={quality}]'
             
             # Tải video
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
