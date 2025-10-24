@@ -9,6 +9,10 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+# Cấp quyền cho GitHub Actions
+permissions:
+  contents: write
+  
 jobs:
   build-windows:
     runs-on: windows-latest
