@@ -9,7 +9,23 @@ import threading
 import os
 import sys
 from pathlib import Path
+import ssl
+import certifi
 import yt_dlp
+
+# Fix SSL certificate verification issues
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# Set SSL context to use certifi certificates
+try:
+    import certifi
+    os.environ['SSL_CERT_FILE'] = certifi.where()
+except ImportError:
+    pass
+
+# Disable SSL verification as fallback
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 class VideoDownloader:
@@ -65,8 +81,12 @@ class VideoDownloader:
         )
         url_label.pack(anchor="w", pady=(0, 8))
         
+        # Frame chứa entry và button dán
+        url_input_frame = tk.Frame(url_frame, bg="#1e1e2e")
+        url_input_frame.pack(fill="x")
+        
         self.url_entry = tk.Entry(
-            url_frame,
+            url_input_frame,
             font=("Segoe UI", 11),
             bg="#2d2d44",
             fg="#ffffff",
@@ -76,11 +96,30 @@ class VideoDownloader:
             highlightcolor="#00d4ff",
             highlightbackground="#3d3d5c"
         )
-        self.url_entry.pack(fill="x", ipady=10, padx=2)
+        self.url_entry.pack(side="left", fill="x", expand=True, ipady=10, padx=(2, 10))
         self.url_entry.insert(0, "Dán link video vào đây...")
         self.url_entry.bind("<FocusIn>", self.on_entry_click)
         self.url_entry.bind("<FocusOut>", self.on_focus_out)
+        # Phím tắt Ctrl+V để dán
+        self.url_entry.bind("<Control-v>", lambda e: self.paste_from_clipboard())
         self.url_entry.config(fg="#808080")
+        
+        # Nút dán tự động
+        paste_btn = tk.Button(
+            url_input_frame,
+            text="📋 Dán",
+            command=self.paste_from_clipboard,
+            font=("Segoe UI", 10, "bold"),
+            bg="#00d4ff",
+            fg="#1e1e2e",
+            activebackground="#00b8e6",
+            activeforeground="#1e1e2e",
+            relief="flat",
+            cursor="hand2",
+            padx=20,
+            pady=10
+        )
+        paste_btn.pack(side="right")
         
         # Quality Selection
         quality_frame = tk.Frame(main_frame, bg="#1e1e2e")
@@ -249,6 +288,33 @@ class VideoDownloader:
         if self.url_entry.get() == "":
             self.url_entry.insert(0, "Dán link video vào đây...")
             self.url_entry.config(fg="#808080")
+    
+    def paste_from_clipboard(self):
+        """Dán link từ clipboard vào ô URL"""
+        try:
+            # Lấy nội dung từ clipboard
+            clipboard_content = self.root.clipboard_get()
+            
+            # Xóa nội dung cũ
+            self.url_entry.delete(0, "end")
+            
+            # Dán nội dung mới
+            self.url_entry.insert(0, clipboard_content.strip())
+            
+            # Đổi màu chữ thành bình thường
+            self.url_entry.config(fg="#ffffff")
+            
+            # Focus vào entry
+            self.url_entry.focus_set()
+            
+            # Hiển thị thông báo ngắn
+            self.update_status("Đã dán link từ clipboard!", "#00d4ff")
+            
+        except tk.TclError:
+            # Clipboard trống hoặc không có nội dung
+            messagebox.showwarning("Cảnh báo", "Clipboard trống!\n\nVui lòng copy link video trước.")
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Không thể dán từ clipboard!\n\nLỗi: {str(e)}")
     
     def browse_folder(self):
         """Chọn thư mục lưu file"""

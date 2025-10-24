@@ -1,13 +1,17 @@
 # -*- mode: python ; coding: utf-8 -*-
 # PyInstaller spec file for SnapVideo
 
+import certifi
+
 block_cipher = None
 
 a = Analysis(
     ['snapvideo.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[
+        (certifi.where(), 'certifi'),
+    ],
     hiddenimports=[
         'tkinter',
         'tkinter.ttk',
@@ -16,6 +20,9 @@ a = Analysis(
         'yt_dlp',
         'PIL',
         'PIL._tkinter_finder',
+        'certifi',
+        'urllib3',
+        'ssl',
     ],
     hookspath=[],
     hooksconfig={},
